@@ -19,12 +19,13 @@ mongoose.connect(process.env.DB)
   .catch(err => console.error('MongoDB connection error:', err));
 
 
-app.listen(5000,
-    console.log('Server listening on port: 5000')
-)
-
 
 // Use the routes
 app.use('/tasks', taskItemRoutes)
 app.use('/users', userRoutes);
 
+// Listen on dynamic port or default to 5000 for local development
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
